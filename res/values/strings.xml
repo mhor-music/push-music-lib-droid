@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Push My Music Library</string>
+    <string name="push_now">Push Now</string>
+    <string name="log_me">Connect</string>
+    <string name="create_account">Create Account</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="email">Email</string>
+    <string name="validated_device">Your device is validated</string>
+    <string name="none_validated_device">Your device is not validated</string>
+</resources>
