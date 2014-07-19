@@ -2,7 +2,7 @@ package com.mhor.pushmusiclib.model;
 
 import java.util.ArrayList;
 
-public class PushMusicLib
+public class PushMusicLibData
 {
     protected String pushId;
 

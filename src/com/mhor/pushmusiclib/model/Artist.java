@@ -1,11 +1,14 @@
 package com.mhor.pushmusiclib.model;
 
-import java.util.ArrayList;
-
-/**
- * Created by maxime on 18/07/14.
- */
 public class Artist
 {
+    private final int id;
+
     protected String name;
+
+    public Artist(int artist_id, String artist_name)
+    {
+        this.id = artist_id;
+        this.name = artist_name;
+    }
 }

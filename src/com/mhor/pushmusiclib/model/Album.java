@@ -6,6 +6,14 @@ public class Album
 {
     protected ArrayList<Track> tracks;
     protected Artist albumArtist;
+    protected String name;
+    protected int id;
+
+    public Album(int album_id, String album_name)
+    {
+        this.id = album_id;
+        this.name = album_name;
+    }
 
     public ArrayList<Track> getTracks()
     {

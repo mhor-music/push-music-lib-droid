@@ -5,6 +5,10 @@ package com.mhor.pushmusiclib.model;
  */
 public class Track
 {
+    protected int id;
+
+    protected String fullpath;
+
     protected String name;
 
     protected String duration;
@@ -16,6 +20,13 @@ public class Track
     protected Style trackStyle;
 
     protected Artist artist;
+
+    public Track(int song_id, String song_name, String fullpath)
+    {
+        this.name = song_name;
+        this.id = song_id;
+        this.fullpath = fullpath;
+    }
 
     public String getName()
     {

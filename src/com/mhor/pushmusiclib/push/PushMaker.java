@@ -8,7 +8,7 @@ import com.mhor.pushmusiclib.model.*;
 
 public class PushMaker
 {
-    protected PushMusicLib pushMusicLib = new PushMusicLib();
+    protected PushMusicLibData pushMusicLibData = new PushMusicLibData();
 
     public void getMusicLib(ContentResolver cr)
     {
@@ -42,10 +42,15 @@ public class PushMaker
                     Style style = this.extractStyle(cursor);
                     Track track = this.extractTrack(cursor);
 
+                    this.putTrackDataOnPushData(album, artist, style, track);
                 } while (cursor.moveToNext());
             }
             cursor.close();
         }
+    }
+
+    private void putTrackDataOnPushData(Album album, Artist artist, Style style, Track track)
+    {
     }
 
     /**
@@ -60,9 +65,6 @@ public class PushMaker
         return null;
     }
 
-    /**
-     * @TODO Not Fully Implemented
-     */
     protected Artist extractArtist(Cursor cursor)
     {
         String artist_name = cursor.getString(
@@ -72,12 +74,11 @@ public class PushMaker
         int artist_id = cursor.getInt(
             cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID)
         );
-        return null;
+
+        Artist artist = new Artist(artist_id, artist_name);
+        return artist;
     }
 
-    /**
-     * @TODO Not Fully Implemented
-     */
     protected Track extractTrack(Cursor cursor)
     {
         String song_name = cursor.getString(
@@ -91,12 +92,11 @@ public class PushMaker
         String fullpath = cursor.getString(
             cursor.getColumnIndex(MediaStore.Audio.Media.DATA)
         );
-        return null;
+
+        Track track = new Track(song_id, song_name, fullpath);
+        return track;
     }
 
-    /**
-     * @TODO Not Fully Implemented
-     */
     protected Album extractAlbum(Cursor cursor)
     {
         String album_name = cursor.getString(
@@ -106,7 +106,9 @@ public class PushMaker
         int album_id = cursor.getInt(
             cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)
         );
-        return null;
+
+        Album album = new Album(album_id, album_name);
+        return album;
     }
 
     /**
@@ -122,7 +124,7 @@ public class PushMaker
      * @return
      * @TODO Not Implemented
      */
-    public PushMusicLib getPushData()
+    public PushMusicLibData getPushData()
     {
         return null;
     }

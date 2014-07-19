@@ -1,12 +1,12 @@
 package com.mhor.pushmusiclib.push;
 
-import com.mhor.pushmusiclib.model.PushMusicLib;
+import com.mhor.pushmusiclib.model.PushMusicLibData;
 
 public class PushSender
 {
-    protected PushMusicLib pushMusicLib;
+    protected PushMusicLibData pushMusicLib;
 
-    public PushSender(PushMusicLib pushData)
+    public PushSender(PushMusicLibData pushData)
     {
         this.pushMusicLib = pushData;
     }
@@ -17,7 +17,26 @@ public class PushSender
      */
     public PushResponse send()
     {
+        this.pushDataByChunk();
         return null;
 
+    }
+
+    /**
+     * @return
+     * @TODO Not Implemented
+     */
+    protected int pushDataByChunk()
+    {
+        return this.pushData();
+    }
+
+    /**
+     * @return
+     * @TODO Not Implemented
+     */
+    protected int pushData()
+    {
+        return 0;
     }
 }
