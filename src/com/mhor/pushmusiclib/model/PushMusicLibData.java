@@ -8,9 +8,13 @@ public class PushMusicLibData
 
     protected String datePush;
 
-    protected Device device;
+    protected Device device = null;
 
     protected ArrayList<Album> albums = new ArrayList<Album>();
+
+    protected boolean first = false;
+
+    protected boolean last = false;
 
     public String getPushId()
     {
@@ -37,11 +41,6 @@ public class PushMusicLibData
         return albums;
     }
 
-    public void setAlbums(ArrayList<Album> albums)
-    {
-        this.albums = albums;
-    }
-
     public boolean albumExist(Album album)
     {
         for (Album ab : this.getAlbums()) {
@@ -65,5 +64,25 @@ public class PushMusicLibData
             }
         }
         return null;
+    }
+
+    public void setLast(boolean last)
+    {
+        this.last = last;
+    }
+
+    public Device getDevice()
+    {
+        return device;
+    }
+
+    public void setDevice(Device device)
+    {
+        this.device = device;
+    }
+
+    public void setFirst(boolean first)
+    {
+        this.first = first;
     }
 }

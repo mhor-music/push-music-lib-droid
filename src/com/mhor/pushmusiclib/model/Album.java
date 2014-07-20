@@ -20,38 +20,8 @@ public class Album
         return tracks;
     }
 
-    public void setTracks(ArrayList<Track> tracks)
-    {
-        this.tracks = tracks;
-    }
-
-    public Artist getAlbumArtist()
-    {
-        return albumArtist;
-    }
-
-    public void setAlbumArtist(Artist albumArtist)
-    {
-        this.albumArtist = albumArtist;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
     public int getId()
     {
         return id;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
     }
 }

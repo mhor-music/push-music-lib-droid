@@ -8,33 +8,10 @@ public class Device
 
     protected String token;
 
-    public String getDeviceName()
-    {
-        return deviceName;
-    }
-
-    public void setDeviceName(String deviceName)
+    public Device(String deviceName, String deviceId, String token)
     {
         this.deviceName = deviceName;
-    }
-
-    public String getDeviceId()
-    {
-        return deviceId;
-    }
-
-    public void setDeviceId(String deviceId)
-    {
         this.deviceId = deviceId;
-    }
-
-    public String getToken()
-    {
-        return token;
-    }
-
-    public void setToken(String token)
-    {
         this.token = token;
     }
 }

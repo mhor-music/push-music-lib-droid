@@ -50,7 +50,6 @@ public class PushMaker
 
     private void putTrackDataOnPushData(Album album, Artist artist, Style style, Track track)
     {
-
         if (!this.pushMusicLibData.albumExist(album)) {
             this.pushMusicLibData.getAlbums().add(album);
         }
@@ -60,7 +59,7 @@ public class PushMaker
     }
 
     /**
-     * @TODO Not Implemented
+     * @TODO Not Fully Implemented
      */
     private void setDeviceIntoDataPush(ContentResolver cr)
     {
@@ -155,12 +154,8 @@ public class PushMaker
         return true;
     }
 
-    /**
-     * @return
-     * @TODO Not Implemented
-     */
     public PushMusicLibData getPushData()
     {
-        return null;
+        return this.pushMusicLibData;
     }
 }

@@ -2,7 +2,7 @@ package com.mhor.pushmusiclib.model;
 
 public class Artist
 {
-    private final int id;
+    protected int id;
 
     protected String name;
 
