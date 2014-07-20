@@ -10,7 +10,7 @@ public class PushMusicLibData
 
     protected Device device;
 
-    protected ArrayList<Album> albums;
+    protected ArrayList<Album> albums = new ArrayList<Album>();
 
     public String getPushId()
     {
@@ -40,5 +40,30 @@ public class PushMusicLibData
     public void setAlbums(ArrayList<Album> albums)
     {
         this.albums = albums;
+    }
+
+    public boolean albumExist(Album album)
+    {
+        for (Album ab : this.getAlbums()) {
+            if (ab.getId() == album.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void putTrack(Album album, Track track)
+    {
+        this.getAlbum(album).getTracks().add(track);
+    }
+
+    private Album getAlbum(Album album)
+    {
+        for (Album ab : this.getAlbums()) {
+            if (ab.getId() == album.getId()) {
+                return ab;
+            }
+        }
+        return null;
     }
 }

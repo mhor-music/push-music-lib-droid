@@ -1,11 +1,16 @@
 package com.mhor.pushmusiclib.model;
 
-/**
- * Created by maxime on 18/07/14.
- */
 public class Track
 {
+    protected String dateAdd;
+
+    protected String dateModified;
+
+    protected int trackNumber;
+
     protected int id;
+
+    protected String year;
 
     protected String fullpath;
 
@@ -21,11 +26,16 @@ public class Track
 
     protected Artist artist;
 
-    public Track(int song_id, String song_name, String fullpath)
+    public Track(int id, String name, String fullpath, String year, String duration, int trackNumber, String dateAdd, String dateModified)
     {
-        this.name = song_name;
-        this.id = song_id;
+        this.id = id;
+        this.name = name;
         this.fullpath = fullpath;
+        this.year = year;
+        this.duration = duration;
+        this.trackNumber = trackNumber;
+        this.dateAdd = dateAdd;
+        this.dateModified = dateModified;
     }
 
     public String getName()

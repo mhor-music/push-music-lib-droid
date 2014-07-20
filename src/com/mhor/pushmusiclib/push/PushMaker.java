@@ -6,6 +6,9 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import com.mhor.pushmusiclib.model.*;
 
+import java.util.Date;
+import java.util.UUID;
+
 public class PushMaker
 {
     protected PushMusicLibData pushMusicLibData = new PushMusicLibData();
@@ -16,10 +19,6 @@ public class PushMaker
         this.setMusicLibContentIntoDataPush(cr);
     }
 
-    /**
-     * @param cr
-     * @TODO Not fully implemented
-     */
     private void setMusicLibContentIntoDataPush(ContentResolver cr)
     {
         String[] STAR = {"*"};
@@ -27,11 +26,11 @@ public class PushMaker
         String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
 
         Cursor cursor = cr.query(
-            allsongsuri,
-            STAR,
-            selection,
-            null,
-            null
+                allsongsuri,
+                STAR,
+                selection,
+                null,
+                null
         );
 
         if (cursor != null) {
@@ -51,6 +50,13 @@ public class PushMaker
 
     private void putTrackDataOnPushData(Album album, Artist artist, Style style, Track track)
     {
+
+        if (!this.pushMusicLibData.albumExist(album)) {
+            this.pushMusicLibData.getAlbums().add(album);
+        }
+        track.setTrackStyle(style);
+        track.setArtist(artist);
+        this.pushMusicLibData.putTrack(album, track);
     }
 
     /**
@@ -58,6 +64,9 @@ public class PushMaker
      */
     private void setDeviceIntoDataPush(ContentResolver cr)
     {
+        this.pushMusicLibData.setPushId(UUID.randomUUID() + "");
+        Date date = new Date();
+        this.pushMusicLibData.setDatePush(date.toString());
     }
 
     protected Style extractStyle(Cursor cursor)
@@ -67,48 +76,74 @@ public class PushMaker
 
     protected Artist extractArtist(Cursor cursor)
     {
-        String artist_name = cursor.getString(
-            cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
+        int id = cursor.getInt(
+                cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID)
         );
 
-        int artist_id = cursor.getInt(
-            cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID)
+        String name = cursor.getString(
+                cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
         );
 
-        Artist artist = new Artist(artist_id, artist_name);
-        return artist;
+        return new Artist(id, name);
     }
 
     protected Track extractTrack(Cursor cursor)
     {
-        String song_name = cursor.getString(
-            cursor.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME)
+        int id = cursor.getInt(
+                cursor.getColumnIndex(MediaStore.Audio.Media._ID)
         );
 
-        int song_id = cursor.getInt(
-            cursor.getColumnIndex(MediaStore.Audio.Media._ID)
+        String name = cursor.getString(
+                cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
+        );
+
+        int trackNumber = cursor.getInt(
+                cursor.getColumnIndex(MediaStore.Audio.Media.TRACK)
+        );
+
+        String duration = cursor.getString(
+                cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
         );
 
         String fullpath = cursor.getString(
-            cursor.getColumnIndex(MediaStore.Audio.Media.DATA)
+                cursor.getColumnIndex(MediaStore.Audio.Media.DATA)
         );
 
-        Track track = new Track(song_id, song_name, fullpath);
-        return track;
+        String year = cursor.getString(
+                cursor.getColumnIndex(MediaStore.Audio.Media.YEAR)
+        );
+
+        String dateAdd = cursor.getString(
+                cursor.getColumnIndex(MediaStore.Audio.Media.DATE_ADDED)
+        );
+
+        String dateModified = cursor.getString(
+                cursor.getColumnIndex(MediaStore.Audio.Media.DATE_MODIFIED)
+        );
+
+        return new Track(
+                id,
+                name,
+                fullpath,
+                year,
+                duration,
+                trackNumber,
+                dateAdd,
+                dateModified
+        );
     }
 
     protected Album extractAlbum(Cursor cursor)
     {
-        String album_name = cursor.getString(
-            cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM)
+        String name = cursor.getString(
+                cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM)
         );
 
-        int album_id = cursor.getInt(
-            cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)
+        int id = cursor.getInt(
+                cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)
         );
 
-        Album album = new Album(album_id, album_name);
-        return album;
+        return new Album(id, name);
     }
 
     /**
