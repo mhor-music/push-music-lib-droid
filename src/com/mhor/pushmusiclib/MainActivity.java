@@ -17,7 +17,7 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
 
-        this.pushMaker.getMusicLib(this.getContentResolver());
+        this.pushMaker.getMusicLib(this.getApplicationContext());
 
         if (this.pushMaker.isValid()) {
             this.pushSender = new PushSender(this.pushMaker.getPushData());

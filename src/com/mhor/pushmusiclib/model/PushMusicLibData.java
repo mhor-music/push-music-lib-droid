@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class PushMusicLibData
 {
+    public static String PREFS_PUSH_MUSIC_LIB = "PushMusicLib";
+
+    public static String PREFS_PUSH_MUSIC_LIB_TOKEN = "PushMusicLibToken";
+
     protected String pushId;
 
     protected String datePush;

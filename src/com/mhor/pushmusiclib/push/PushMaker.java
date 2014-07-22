@@ -1,9 +1,12 @@
 package com.mhor.pushmusiclib.push;
 
-import android.content.ContentResolver;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import com.mhor.pushmusiclib.model.*;
 
 import java.util.Date;
@@ -11,21 +14,25 @@ import java.util.UUID;
 
 public class PushMaker
 {
+    protected Context context;
+
     protected PushMusicLibData pushMusicLibData = new PushMusicLibData();
 
-    public void getMusicLib(ContentResolver cr)
+    public void getMusicLib(Context context)
     {
-        this.setDeviceIntoDataPush(cr);
-        this.setMusicLibContentIntoDataPush(cr);
+        this.context = context;
+
+        this.setDeviceIntoDataPush();
+        this.setMusicLibContentIntoDataPush();
     }
 
-    private void setMusicLibContentIntoDataPush(ContentResolver cr)
+    private void setMusicLibContentIntoDataPush()
     {
         String[] STAR = {"*"};
         Uri allsongsuri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
 
-        Cursor cursor = cr.query(
+        Cursor cursor = this.context.getContentResolver().query(
                 allsongsuri,
                 STAR,
                 selection,
@@ -58,14 +65,17 @@ public class PushMaker
         this.pushMusicLibData.putTrack(album, track);
     }
 
-    /**
-     * @TODO Not Fully Implemented
-     */
-    private void setDeviceIntoDataPush(ContentResolver cr)
+    private void setDeviceIntoDataPush()
     {
         this.pushMusicLibData.setPushId(UUID.randomUUID() + "");
         Date date = new Date();
         this.pushMusicLibData.setDatePush(date.toString());
+
+        SharedPreferences settings = this.context.getSharedPreferences(PushMusicLibData.PREFS_PUSH_MUSIC_LIB, 0);
+        String token = settings.getString(PushMusicLibData.PREFS_PUSH_MUSIC_LIB_TOKEN, null);
+        String deviceId = Settings.Secure.getString(this.context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        String deviceName = Build.MANUFACTURER + " " + Build.MODEL;
+        this.pushMusicLibData.setDevice(new Device(token, deviceId, deviceName));
     }
 
     protected Style extractStyle(Cursor cursor)
