@@ -3,7 +3,7 @@ package com.mhor.pushmusiclib.push;
 import com.mhor.pushmusiclib.model.Album;
 import com.mhor.pushmusiclib.model.PushMusicLibData;
 
-public class PushSender
+public class MusicDataPushSender
 {
     protected PushMusicLibData pushMusicLibData;
 
@@ -15,7 +15,7 @@ public class PushSender
 
     static final protected String API_URL = "http://push-music-lib.mhor.com/api/1.0/push";
 
-    public PushSender(PushMusicLibData pushData)
+    public MusicDataPushSender(PushMusicLibData pushData)
     {
         this.pushMusicLibData = pushData;
     }
@@ -35,7 +35,7 @@ public class PushSender
         for (Album album : this.pushMusicLibData.getAlbums()) {
 
             this.currentMusicLibData.getAlbums().add(album);
-            if (i == PushSender.ALBUM_BY_CHUNK) {
+            if (i == MusicDataPushSender.ALBUM_BY_CHUNK) {
                 this.pushData();
                 this.instantiateNewCurrentMusicLib();
                 i = 0;

@@ -2,26 +2,27 @@ package com.mhor.pushmusiclib;
 
 import android.app.Activity;
 import android.os.Bundle;
-import com.mhor.pushmusiclib.push.PushMaker;
+import com.mhor.pushmusiclib.push.MusicDataPushMaker;
+import com.mhor.pushmusiclib.push.MusicDataPushSender;
 import com.mhor.pushmusiclib.push.PushResponse;
-import com.mhor.pushmusiclib.push.PushSender;
 
 public class MainActivity extends Activity
 {
-    protected PushMaker pushMaker = new PushMaker();
+    protected MusicDataPushMaker musicDataPushMaker;
 
-    protected PushSender pushSender;
+    protected MusicDataPushSender musicDataPushSender;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
-        this.pushMaker.getMusicLib(this.getApplicationContext());
+        this.musicDataPushMaker = new MusicDataPushMaker(this.getApplicationContext());
+        this.musicDataPushMaker.getMusicLib();
 
-        if (this.pushMaker.isValid()) {
-            this.pushSender = new PushSender(this.pushMaker.getPushData());
-            PushResponse response = this.pushSender.send();
+        if (this.musicDataPushMaker.isValid()) {
+            this.musicDataPushSender = new MusicDataPushSender(this.musicDataPushMaker.getPushData());
+            PushResponse response = this.musicDataPushSender.send();
             this.showPushResponse(response);
         }
     }
